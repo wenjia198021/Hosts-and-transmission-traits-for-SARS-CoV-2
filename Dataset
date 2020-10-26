@@ -1,0 +1,11 @@
+Viral sequences used in this study are collected from GenBank and GISAID with basic sequence information (see Supplementary Dataset.xls).
+
+Dataset 1: all viruses from the family Coronaviridae in NCBI’s RefSeq database are collected to determine the classification of SARS-CoV-2, in which Wuhan-Hu-1 is the reference sequence for SARS-CoV-2.
+
+Dataset 2: viruses in the genus BetaCoV are used to determine the classification of SARS-CoV-2 at Genus level, in which whole-genome sequence, non-structural protein gene Orf1ab, and genes encoding structural proteins of S, E, M, and N are utilized. 
+
+Dataset 3: closely related coronaviruses from SARS-CoV, Bat-SL-CoV, Pan-CoV, Bat-CoV, and Env-CoV sampled from the seafood market are applied to identify the origin of SARS-CoV-2. 
+
+Dataset 4: according to transmission mode of animal origins of human coronaviruses5, coronavirus groups are chosen from all possible animals to ascertain the intermediate hosts of SARS-CoV-2.
+
+Dataset 5: except different out-groups, a total of 141 virus genomes from human SARS-CoV-2 viruses from GISAID with submission date on or before February 29, 2020, are applied to crack transmitting features. Any sequence with Ns is discarded. Sequences of Shenzhen/SZTH-001 (EPI_ISL_406592), Shenzhen/SZTH-004 (EPI_ISL_406595), TaiWan/NTU01 (EPI_ISL_408489), and Singapore/4 (EPI_ISL_410535) are also excluded44,47,48.
