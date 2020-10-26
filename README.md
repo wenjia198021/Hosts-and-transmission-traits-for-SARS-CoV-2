@@ -2,7 +2,7 @@
 
 All the datasets and matlab code used for the paper of "In-depth exploraton of hosts and transmission traits for SARS-CoV-2 in COVID-19".
 
-Example: How to get the Neighbour-joining (NJ) phylogenetic tree based on our preparing dataset:
+Example: how to determine the classification of SARS-CoV-2 based on the k-mer nature vector, and the corresponding the Neighbour-joining (NJ) phylogenetic tree show the classification of SARS-CoV-2:
 
 Step 1. Put the dataset (hrv.fasta/beta_globin.fasta/influenza_1163.fasta) and matlab under the software of Matlab;
 
