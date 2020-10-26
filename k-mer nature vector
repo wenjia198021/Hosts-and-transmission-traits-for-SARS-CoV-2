@@ -1,40 +1,13 @@
-K-mer natural vector
+Herein, k-mer natural vector is employed to explore the hosts and transmission traits of SARS-CoV-2, which was well kept the ability to deal with recombination, shuffling, and rearrangement often existing in virus genome evolution, and overcame deficiencies of previous k-mer models.
 
-Let s='N_1 N_2⋯N_L' be a virus sequence with length L, where N_l∈{A,C,G,T}, l=1,2,⋯,L, and s[j][i] be the location of the i-th occurrence of a k-mer s[j] in s, j=1,2,⋯,4^k. 
-For each given k, the distributions of a k-mer s[j] can be described by three quantities:
+The k-mer natural vector characterizes the compositions and distribution features of k-mers appearing in a virus genome, and there is a one-to-one relationship between a virus sequence and its k-mer natural vector. 
+
+The significant novelty for this new method is that the virus sequence can be recovered by its corresponding k-mer natural vector through a rigorous mathematical proof.
+
+Based on k-mer representaton for nucleotide sequence, k-mer natural vector is defined as follows:
+let s='N_1 N_2⋯N_L' be a virus sequence with length L, where N_l∈{A,C,G,T}, l=1,2,⋯,L, and s[j][i] be the location of the i-th occurrence of a k-mer s[j] in s, j=1,2,⋯,4^k. For each given k, the distributions of a k-mer s[j] can be described by three quantities:
   n_s[j] : Number of s[j]  occurrences in s;
   μ_s[j] : Mean distance of s[j] from the first position of s;
   D_m^s[j] : Center central moment of s[j], that is, 
 D_m^(s[j])=∑_(i=1)^(n_(s[j]))▒〖(s[j][i]-μ_s[j] )〗^m/(n_(s[j])^(m-1) 〖(L-k+1)〗^(m-1) ),m=1,2,⋯,n_s[j] .
 Thus, the k-mer natural vector for sequence s is defined by (n_s[j] ,μ_s[j] , D_m^s[j] ), j=1,2,⋯,4^k. 
-By the definition above, the k-mer natural vector concatenates the numbers of occurrence and mean distance for k-mer with its central moments, it therefore contains the information of k-mers and avoids the deficiencies of previous k-mer model methods. Moreover, the relationship between a virus sequence and its k-mer natural vector is one-to-one for each given k, which has been mathematically proved (Supplementary Text 2). In addition, it is verified that a k-mer natural vector with order two central moment is enough to represent a virus sequence, so (n_s[j] ,μ_s[j] , D_2^s[j] ) is effectively depict a virus sequence, and still satisfies one-to-one mapping.
-
-For each given k, there are 4^k different possible k-mers in a virus sequence. We can mathematically prove that the relationship between a virus sequence and its natural vector is one-to-one for each given k. 
-Theorem: A virus sequence s has n nucleotides, the relationship between virus sequence s and its natural vector is one-to-one for each given k.
-Proof: Suppose k is given. 
-	We need to demonstrate that for any given proper natural vector (n_s[i] ,μ_s[i] ,D_m^s[i] ）, we can recover virus sequence s.
-Let us first denote z_(s[i]j)=s[i][j]-μ_(s[i]), then m-rank central moment can be simplified as:
-D_m^(s[i])=∑_(j=1)^(n_(s[i]))▒(z_(s[i]j)^m)/(n_(s[i])^(m-1) 〖(L-k+1)〗^(m-1) ),m=1,2,⋯,n_(s[i]),
-where s[i] is one of 4^k possible different k-mers,  L is the length of s, and n_(s[i]) is the number of s[i]. 
-If we can find the value of each z_(s[i]j), the virus sequence s can be recovered. 
-To find z_(s[i]j), let δ_(s[i]m)=D_m^(s[i]) n_(s[i])^(m-1) 〖(L-k+1)〗^(m-1) (=∑_(j=1)^(n_(s[i]))▒z_s[i]j^m ), then δ_(s[i]m) can be obtained by D_m^(s[i]) and n_(s[i]).
-For a given natural vector, n_(s[i])，μ_(s[i]) and D_m^(s[i])  are known for each s[i]. Therefore, we need to solve for each z_(s[i]j) corresponding to each n_(s[i]). 
-Clearly, δ_(s[i]m) and z_(s[i]j) satisfy:
-{■(■(δ_(s[i]1)=z_(s[i]1)+z_(s[i]2)+⋯+z_(s[i]n_(s[i]) )@δ_(s[i]2)=z_(s[i]1)^2+z_(s[i]2)^2+⋯+z_(s[i]n_(s[i]))^2 )@■(⋮@δ_(s[i]n_k )=z_(s[i]1)^(n_k )+z_(s[i]2)^(n_k )+⋯+z_(s[i]n_(s[i]))^(n_k ) ))┤.
-Assume that z_(s[i]1),z_(s[i]2),…,z_(s[i]n_(s[i]) ) are the roots of a symmetric polynomial
- a_0+a_1 z_(s[i])+a_2 z_(s[i])^2+⋯+a_(n_(s[i]) )zsins[i]=(zsi-zsi1)(zsi-zsi2)…(zsi-zsins[i]). 
-Let Q_d (d=1,2,…,n) be the elementary symmetric polynomials in z_(s[i]1),z_(s[i]2),…,z_(s[i]n_(s[i]) ), i.e. 
-Q_1=∑_(p=1)^(n_(s[i]))▒z_s[i]p ，Q_2=∑_(p<q)▒〖z_s[i]p z_s[i]q 〗,Q_3=∑_(p<q<r)▒〖z_s[i]p z_s[i]q 〗 z_s[i]r,…〖,Q〗_(n_(s[i]) )=z_(s[i]1) z_(s[i]2)…z_(s[i]n_(s[i]) ).
-Then,
-Q_1=-a_(n_(s[i])-1),Q_2=a_(n_s[i] -2),…,Q_(n_(s[i]) )=〖(-1)〗^(n_(s[i]) ) a_0.
-By using Newton’s famous identities (Jacobson, 1974):
-δ_d-Q_1 δ_(d-1)+⋯+〖(-1)^(d-1) Q〗_(d-1) δ_1+〖(-1)^d Q〗_d=0,
-where d=1,2,…,n and Q_d is the elementary symmetric polynomials in z_(s[i]1),z_(s[i]2),…,z_(s[i]n_(s[i]) ). 
-So a_(n_(s[i]) ) can be obtained by δ_j as shown below:
-{■(■(a_(n_(s[i]) )=1@〖a_(n_s[i] -1)=(-1)δ〗_1 )@■(■(a_(n_(s[i])-2)=1/2(δ_1^2-δ_2)@a_(n_(s[i])-3)=(-1)^3  1/6(δ_1^3-3〖δ_1 δ〗_2+2δ_3))@■(a_(n_s[i] -4)=1/24(δ_1^4-6δ_1^2 δ_2+3〖δ_2^2+8δ_1 δ〗_3-6δ_4)@…)))┤.
-That is,
-a_(n_(s[i]) )=1，a_(n_s[i] -1)=-Q_1, a_(n_s[i] -2)=-Q_2,⋯.
-As a result, the coefficients of the symmetric polynomial a_0+a_1 z_(s[i])+a_2 z_(s[i])^2+⋯+〖a_(n_s[i]  ) z〗_s[i]^(n_(s[i]) )=(z_s[i] -z_s[i]1)(z_s[i] -z_s[i]2)…(z_s[i] -z_(s[i] n_s[i]  )) can be confirmed, and the set of all roots can be obtained. 
-Next we need to identify each root z_(s[i]1),z_(s[i]2),…,z_(s[i]n_(s[i]) ) and z_(s[i]j)-z_(s[i]j+l)=s[i][j]-s[i][j+l]. For any l>0, s[i][j]<s[i][j+l] by the definition of s[i][j]. It is obvious that z_(s[i]j)<z_(s[i]j+l). As a consequence z_(s[i]j) is strictly increasing and each root can be identified by this property, which means that each value of s[i][j] can be obtained. Since μ_(s[i]) is known for a given natural vector, s[i][j] can be easily obtained. Hence, virus sequence s can be recovered from based on all s[i][j].
-	For a given virus sequence s, the distribution of each k-mer in genetic sequence is determined. Based on the definition of n_(s[i])，μ_(s[i]) and D_m^(s[i]), it is easy to construct a natural vector (n_s[i] ,μ_s[i] ,D_m^s[i] ）for each s[i] in virus sequence s.
-Combining (1) and (2), we have therefore successfully proved that the relationship between virus sequence s and its natural vector is one-to-one for each given k.∎
