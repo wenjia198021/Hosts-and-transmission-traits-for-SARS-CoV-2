@@ -1,23 +1,21 @@
-Herein, k-mer natural vector is employed to explore the hosts and transmission traits of SARS-CoV-2, which was well kept the ability to deal with recombination, shuffling, and rearrangement often existing in virus genome evolution, and overcame deficiencies of previous k-mer models.
+K-mer natural vector is employed to explore the hosts and transmission traits of SARS-CoV-2, which was well kept the ability to deal with recombination, shuffling, and rearrangement often existing in virus genome evolution, and overcame deficiencies of previous k-mer models.
 
-The k-mer natural vector characterizes the compositions and distribution features of k-mers appearing in a virus genome, and there is a one-to-one relationship between a virus sequence and its k-mer natural vector. 
-
-The significant novelty for this new method is that the virus sequence can be recovered by its corresponding k-mer natural vector through a rigorous mathematical proof.
+The k-mer natural vector characterizes the compositions and distribution features of k-mers appearing in a virus genome, and there is a one-to-one relationship between a virus sequence and its k-mer natural vector. The significant novelty for this new method is that the virus sequence can be recovered by its corresponding k-mer natural vector through a rigorous mathematical proof.
 
 Based on k-mer representaton for nucleotide sequence, k-mer natural vector is defined as follows:
 let s='N_1 N_2⋯N_L' be a virus sequence with length L, where N_l∈{A,C,G,T}, l=1,2,⋯,L, and s[j][i] be the location of the i-th occurrence of a k-mer s[j] in s, j=1,2,⋯,4^k. For each given k, the distributions of a k-mer s[j] can be described by three quantities:
   n_s[j] : Number of s[j]  occurrences in s;
   μ_s[j] : Mean distance of s[j] from the first position of s;
   D_m^s[j] : Center central moment of s[j], that is, 
-D_m^(s[j])=∑_(i=1)^(n_(s[j]))▒〖(s[j][i]-μ_s[j] )〗^m/(n_(s[j])^(m-1) 〖(L-k+1)〗^(m-1) ),m=1,2,⋯,n_s[j] .
+         D_m^(s[j])=∑_(i=1)^(n_(s[j]))▒〖(s[j][i]-μ_s[j] )〗^m/(n_(s[j])^(m-1) 〖(L-k+1)〗^(m-1) ),m=1,2,⋯,n_s[j] .
 Thus, the k-mer natural vector for sequence s is defined by (n_s[j] ,μ_s[j] , D_m^s[j] ), j=1,2,⋯,4^k. 
+(Please see manuscript and supplemantary information for more detail on k-mer natural vector) 
 
-Code of k-mer natural vector for nucleotide sequence (such as genome sequence from SARS-CoV-2)
-
+Code of k-mer natural vector for nucleotide sequences (such as genome sequence from SARS-CoV-2):
 clc
 clear
 name='test_data';
-filename=strcat(name,'.fasta');%%%此种情况仅适用于超级计算机，由fasta修改得到%%%
+filename=strcat(name,'.fasta');
 txtc = textread(filename,'%s','delimiter','\n','whitespace','','bufsize', 409500);
 mt = find(cellfun('isempty',txtc));
 txtc(mt) = [];
