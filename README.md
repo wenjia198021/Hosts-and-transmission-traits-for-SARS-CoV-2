@@ -1,8 +1,8 @@
 # Hosts-and-transmission-traits-for-SARS-CoV-2
 
-All the datasets and matlab code used in the paper of "Phylogenetic analysis of protein sequences based on a novel k-mer natural vector method".
+All the datasets and matlab code used for the paper of "In-depth exploraton of hosts and transmission traits for SARS-CoV-2 in COVID-19".
 
-How to get the NJ phylogenetic tree based on the dataset (hrv/beta_globin/influenza_1163) and matlab code:
+Example: How to get the Neighbour-joining (NJ) phylogenetic tree based on our preparing dataset:
 
 Step 1. Put the dataset (hrv.fasta/beta_globin.fasta/influenza_1163.fasta) and matlab under the software of Matlab;
 
