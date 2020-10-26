@@ -109,4 +109,4 @@ end
 fprintf(outfile, '\n');
 fclose(outfile);
 
-Once we get the corresponding .meg file, we could get the neighbour-joining (NJ) tree by the software of Mega 7.0.
+Once we get the corresponding .meg file, we could get the neighbour-joining (NJ) tree by the software of Mega 7.0 (or Mega X).
