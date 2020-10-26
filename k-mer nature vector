@@ -11,3 +11,104 @@ let s='N_1 N_2⋯N_L' be a virus sequence with length L, where N_l∈{A,C,G,T}, 
   D_m^s[j] : Center central moment of s[j], that is, 
 D_m^(s[j])=∑_(i=1)^(n_(s[j]))▒〖(s[j][i]-μ_s[j] )〗^m/(n_(s[j])^(m-1) 〖(L-k+1)〗^(m-1) ),m=1,2,⋯,n_s[j] .
 Thus, the k-mer natural vector for sequence s is defined by (n_s[j] ,μ_s[j] , D_m^s[j] ), j=1,2,⋯,4^k. 
+
+Code of k-mer natural vector for nucleotide sequence (such as genome sequence from SARS-CoV-2)
+
+clc
+clear
+name='test_data';
+filename=strcat(name,'.fasta');%%%此种情况仅适用于超级计算机，由fasta修改得到%%%
+txtc = textread(filename,'%s','delimiter','\n','whitespace','','bufsize', 409500);
+mt = find(cellfun('isempty',txtc));
+txtc(mt) = [];
+lengthn = size(txtc, 1);
+name1='';
+taxanum = 0;
+for j1 = 1 : lengthn
+    if txtc{j1}(1) == '>'
+        taxanum = taxanum + 1;
+        name1{taxanum}=txtc{j1}(2:end);
+    end
+end
+seq{taxanum} ='';
+signk = 0;
+signtaxa = 1;
+for j1 = 2 : lengthn     
+    if txtc{j1}(1) ~= '>'
+        lengthj = length(txtc{j1});
+        seq{signtaxa}(signk+1 : signk+lengthj) = txtc{j1};
+        signk = signk + lengthj;
+    else
+        signtaxa = signtaxa + 1;
+        signk = 0;
+    end
+end
+
+kmer=8;%%Herein, k=8 for genome sequences from SARS-CoV-2
+nucleotide='ACGT';
+base=nucleotide';
+A='';
+for k=1:(kmer-1)
+    l=1;
+    for i=1:4^k
+        for j=1:4
+            A(l,:)=strcat(base(i,:),nucleotide(j));
+            l=l+1;
+        end
+    end
+    base=A;
+    A='';
+end
+B=base;
+n=4^kmer;
+
+S=[];
+for i=1:length(seqs)
+    coro_seq='';
+    coro_seq=seqs(i).Sequence;
+    len=length(coro_seq)-kmer+1;
+    F=[];
+    for j=1:n
+        C='';
+        C=B(j,:);
+        D=[];
+        D=strfind(coro_seq,C);
+               
+        E=[];
+        if length(D)~=0
+            E=[length(D) mean(D) sum((D-mean(D)).^2)/(length(D)*len)];%% Order two central moment is enough to represent a virus sequence so we choose order 2 central moment to depict a virus sequence 
+        else
+            E=[0 0 0];
+        end
+        
+        F=[F E];        
+    end
+    S(i,:)=F;    
+end
+
+measure='cosine';%% we choose cosine distance as measure to quantify the differences between virus sequences
+M=[];
+M=squareform(pdist(S,measure));
+    
+outputfilename=strcat(name,'_',measure,'_k_',num2str(kmer),'.meg');
+num_of_seq=taxanum;
+outfile=fopen(outputfilename, 'w');
+fprintf(outfile, '#mega\n');
+fprintf(outfile, '!Title: TEST;\n');
+fprintf(outfile, '!Format DataType=Distance DataFormat=LowerLeft NTaxa=%d;\n', num_of_seq);
+fprintf(outfile, '\n');
+for k = 1 : num_of_seq
+    fprintf(outfile, '[%d] #%s\n', k, name1{k});
+end
+fprintf(outfile, '\n');
+for j = 2 : num_of_seq
+   fprintf(outfile, '[%d]   ', j);
+   for k = 1 : (j-1)
+       fprintf(outfile, ' %8f', M(j, k));
+   end
+   fprintf(outfile, '\n');
+end
+fprintf(outfile, '\n');
+fclose(outfile);
+
+Once we get the corresponding .meg file, we could get the neighbour-joining (NJ) tree by the software of Mega 7.0.
